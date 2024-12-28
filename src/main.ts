@@ -10,11 +10,15 @@ async function bootstrap() {
   const cors = require('cors');
   app.use(cors()); 
   app.useGlobalPipes(new ValidationPipe({forbidUnknownValues: false}));
-   const port = app.get(ConfigService)
+  // const port = app.get(ConfigService)
    
   const newLocal = "0.0.0.0";
-  await app.listen("4001",newLocal || 'localhost');
-  console.log(`Aplication running on: ${await app.getUrl()}`)
+  const port  = 4000;
+  await app.listen(port, () => {
+    console.log(`Example app listening on port ${port}`)
+  })
+  //  app.listen("4001",newLocal || 'localhost');
+  // console.log(`Aplication running on: ${await app.getUrl()}`)
    
 }
 bootstrap();
