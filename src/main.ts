@@ -13,7 +13,7 @@ async function bootstrap() {
    const port = app.get(ConfigService)
    
   const newLocal = "0.0.0.0";
-  await app.listen(4001,newLocal || 'localhost');
+  await app.listen("4001",newLocal || 'localhost');
   console.log(`Aplication running on: ${await app.getUrl()}`)
    
 }
