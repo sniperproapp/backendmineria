@@ -65,7 +65,7 @@ export class saleService {
             // LA HABILITACION DEL CURSO AL ESTUDIANTE QUE SE HA INSCRITO
            let guardarusercurso= await this.cursostudentsRepository.create({
                 id_user: user,
-                id_curso: Cart.id_curso
+                id_curso:  11
             });
 
             await this.cursostudentsRepository.save(guardarusercurso);

@@ -47,12 +47,12 @@ finAll( @Headers() headers,  ) {
 
  
 @Post('registermensualidad') 
- createmensualidad( 
+ createmensualidad( @Headers() headers,
  @Body() carrito:CreateCarritoDto) {
    
-  
+  var idclient = this.jwtservice.decode(headers['authorization'].split(' ')[1]);
   console.log(carrito)
-  return this.carritoervices.createmensualidad(carrito,carrito.id_user );
+  return this.carritoervices.createmensualidad(carrito,idclient.id );
 }
 
 
@@ -80,14 +80,7 @@ finAll( @Headers() headers,  ) {
  
   
  
-@HasRoles(JwtRole.CLIENT)
-@UseGuards(JwtAuthGuard ,JwtRolesGuard)
-@Post('update/:cupon')
-Update ( @Headers() headers,@Param('cupon') cupon:string ) {
-  var idclient = this.jwtservice.decode(headers['authorization'].split(' ')[1]);
-  return this.carritoervices.update( idclient.id,cupon );
-}
-
+ 
 
 
  

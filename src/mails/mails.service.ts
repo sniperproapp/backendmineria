@@ -29,7 +29,7 @@ private mailerservices: MailerService
   async welcome( email:string){
     await this.mailerservices.sendMail({
       to:email,
-      subject:"Bienvenido a SNIPER PRO ",
+      subject:"Bienvenido",
       template:'./welcome',
       context:{id:email}
       

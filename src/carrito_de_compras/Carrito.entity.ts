@@ -8,39 +8,14 @@ export class Carrito{
 
     @PrimaryGeneratedColumn()
     id: number;
-
-
-    @Column()
-    type_discount:number;
-
-    @Column()
-    discount:number; 
-    
-    @Column()
-    campaign_discount:number;
-
-
-    @Column({nullable: true})
-    code_cupon:string;
-
-    @Column()
-    code_discount:string;
-
-
-    @Column()
-    price_unit:number;
+ 
    
     @Column()
-    subtotal:number;
-   
-    @Column()
-    total:number;
+    monto:number;
   
     @Column()
     id_user:number;
-    @Column()
-    id_curso:number;
-
+     
     @Column()
     id_transaccion:number;
     
@@ -59,10 +34,7 @@ export class Carrito{
     user: User
 
 
-    @ManyToOne(()=>Cursos,(cursos)=>cursos.id)
-    @JoinColumn(  {name: 'id_curso' })
-    curso: Cursos
-
+   
 
 
   

@@ -3,34 +3,20 @@ import { Double } from "typeorm";
 export class CreateCarritoDto{
 
  
-    type_discount:number;
-
-  
-    discount:number; 
-    
-  
-    campaign_discount:number;
+   
 
 
     
-    code_cupon:string;
-
-    
-    code_discount:string;
-
-
-    
-    price_unit:number;
+   
    
     
-    subtotal:number;
-   
     
-    total:number;
+    monto:number;
+    id_transaccion:number;
   
     
     id_user:number;   
-    id_curso:number; 
+     
     
       
 
