@@ -9,8 +9,6 @@ import { Saledetail } from 'src/saledetail/saledetail.entity';
 import { Sale } from 'src/sale/sale.entity';
  
  
-
- 
 const configService = new ConfigService();
 
 @Module({
@@ -19,10 +17,10 @@ const configService = new ConfigService();
     MailerModule.forRootAsync({
      useFactory: async (config:ConfigService)=>({ 
       transport:{
-        host:configService.get('HOST'),
+        host:'email-smtp.us-east-1.amazonaws.com',
         secure: true,
         port:465,
-        auth:{user:configService.get('USER'),pass:configService.get('PASS'),}
+        auth:{user:'AKIA3FLDZQGMBJCV4AGD',pass:'BAE/5LFZN20uEbInchPr9SnFQJz+aTurc6g39XERoErU',}
       },
       defaults:{from: `"NO REPLY"<info@blockzonx.com>`,},
       template:{dir: join(__dirname,'templates'),
