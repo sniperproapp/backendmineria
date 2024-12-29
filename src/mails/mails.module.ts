@@ -19,10 +19,10 @@ const configService = new ConfigService();
     MailerModule.forRootAsync({
      useFactory: async (config:ConfigService)=>({ 
       transport:{
-        host:configService.get('HOST'),
+        host:'email-smtp.us-east-1.amazonaws.com',
         secure: true,
-        port:2465,
-        auth:{user:configService.get('USER'),pass:configService.get('PASS'),}
+        port:465,
+        auth:{user:'AKIA3FLDZQGMF3Z357HZ',pass:'BBIjRigHly7gaUhB2usxQSHNCpogkg0+nl0LHnKxwjR0',}
       },
       defaults:{from: `"NO REPLY"<info@blockzonx.com>`,},
       template:{dir: join(__dirname,'templates'),
