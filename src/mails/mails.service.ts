@@ -14,6 +14,7 @@ private mailerservices: MailerService
   ){}
 
   async senUserConfirmation( email:string,token:string){
+    
     await this.mailerservices.sendMail({
       to:email,
       subject:"Recuperar Password",
@@ -21,6 +22,8 @@ private mailerservices: MailerService
       context:{id:token}
       
     })
+    console.log(email)
+    console.log(token)
   }
 
   async welcome( email:string){

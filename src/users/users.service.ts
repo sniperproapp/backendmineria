@@ -120,7 +120,7 @@ return  this.usersRepository.save(newUser)
          userfound.estado=1;
         
           
-         userfound.time_limit=  new Date( timelimit.timelimit);
+        // userfound.time_limit=  new Date( timelimit.timelimit);
          this.usersRepository.save(userfound);
         return true;
 
@@ -141,15 +141,15 @@ return  this.usersRepository.save(newUser)
            
             if(element.roles.length==1)
           {  
-            if(element.time_limit.toLocaleString().split('/')[2].split(',')[0]==currentDate.toLocaleString().split('/')[2].split(',')[0])
-            {
-                if(Number(element.time_limit.toLocaleString().split('/')[0])<=Number(currentDate.toLocaleString().split('/')[0]))
-                    {
-                        element.estado=0;
+            // if(element.time_limit.toLocaleString().split('/')[2].split(',')[0]==currentDate.toLocaleString().split('/')[2].split(',')[0])
+            // {
+            //     if(Number(element.time_limit.toLocaleString().split('/')[0])<=Number(currentDate.toLocaleString().split('/')[0]))
+            //         {
+            //             element.estado=0;
                         
-                    }
+            //         }
 
-            }
+            // }
            
             }
         })
@@ -169,7 +169,7 @@ return  this.usersRepository.save(newUser)
         {
             throw new HttpException('usuario no existe',HttpStatus.NOT_FOUND);
         }
-         userfound.descargo=1;
+         //userfound.descargo=1;
          this.usersRepository.save(userfound);
         return true;
 

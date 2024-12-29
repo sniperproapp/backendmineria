@@ -80,7 +80,7 @@ async getstatuspay( id:number){
         date1.setDate(5);
        let pago= await this.carritoRepository.findOne({where:{id:id}});
        let user=await this.usersRepository.findOne({where:{id:pago.id_user}})
-       user.time_limit=date1;
+       //user.time_limit=date1;
        let useredit= await this.usersRepository.save(user);
        this.carritoRepository.delete(id);
        throw new HttpException('Su pago fue realizado correctamente tiene su menbresia activa hasta el'+date1,HttpStatus.OK); 

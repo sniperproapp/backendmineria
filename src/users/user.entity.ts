@@ -16,28 +16,17 @@ export class User{
     @Column()
     lastname: string;
 
-    @Column({default:0})
-    duplicatesesion: number;
-   
-    @Column({default:0})
-    descargo: number;
-
-    
-    @Column({default:0})
-    mensaje: number;
-
+      
     @Column({default: 0})
     estado: number;
 
+    @Column({default: 0})
+    saldo: number;
 
     @Column({unique:true})
     email: string;
 
-
-    @Column({default: 0})
-    phone: string;
-
-
+ 
     @Column()
     password: string;
     @Column()
@@ -54,9 +43,7 @@ export class User{
     @Column({type:'datetime',default:()=>'CURRENT_TIMESTAMP'})
     updated_at: Date;
 
-    @Column({type:'datetime',default:()=>'CURRENT_TIMESTAMP'})
-     time_limit: Date;
-
+  
 
     @JoinTable(
         {name:'user_has_roles',

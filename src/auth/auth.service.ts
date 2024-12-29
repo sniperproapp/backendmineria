@@ -231,7 +231,7 @@ export class AuthService {
    this.mailservices.welcome(email );
 
     const rolesIds = userFound.roles.map(rol=>rol.id) ;
-    userFound.duplicatesesion=1;
+   // userFound.duplicatesesion=1;
     this.usersRepository.save(userFound);
    const payload={
     id:userFound.id
@@ -300,7 +300,7 @@ throw new HttpException('passwoed incorrecto',HttpStatus.FORBIDDEN);
 //this.mailservices.welcome(email );
 
 const rolesIds = userFound.roles.map(rol=>rol.id) ;
-userFound.duplicatesesion=1;
+//userFound.duplicatesesion=1;
 this.usersRepository.save(userFound);
 const payload={
 id:userFound.id
@@ -367,11 +367,11 @@ return data;
 
 
  
-        if(userFound.duplicatesesion==1)
-        {
-            userFound.duplicatesesion=0;
-            this.usersRepository.save(userFound);
-         } 
+        // if(userFound.duplicatesesion==1)
+        // {
+        //     userFound.duplicatesesion=0;
+        //     this.usersRepository.save(userFound);
+        //  } 
          
    return true;
     }
@@ -531,7 +531,7 @@ return data;
                     email: Student.email,
                    // profession: Student.profession,
                    // description: Student.description,
-                    phone: Student.phone,
+                   // phone: Student.phone,
                    // birthday: Student.birthday ? formDateToYMD(new Date(Student.birthday)) : null,
                    // birthday_format: Student.birthday ? Student.birthday : null,
                     avatar: Student.imagen 
