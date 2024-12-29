@@ -157,7 +157,7 @@ async findAlltiendacategory(id_category:number ){
         }
      })
 
-     let i=0;
+     let i=0; 
      curso.seciones.forEach((seccion) => {
         
       i=i+ seccion.clases.length;
@@ -166,9 +166,10 @@ async findAlltiendacategory(id_category:number ){
      })
       
      const updatecurso= Object.assign(curso, cursosresp);
+     if(descuento_g!=null){
      if(descuento_g.id>0){
         updatecurso.discount_g=descuento_g
-    }
+    }}
     let N_STUDENTS_C=await this.cursostudentRepository.count({where:{id_curso:curso.id}})
     let REVIEWS_C=await this.reviewsRepository.find({where:{id_curso:curso.id}})
     let AVG_RATING_C = REVIEWS_C.length > 0 ? REVIEWS_C.reduce((sum,review) => sum + review.rating, 0)/REVIEWS_C.length : 0; 
@@ -220,9 +221,10 @@ async findAlltiendauser(id_user:number ){
      })
       
      const updatecurso= Object.assign(curso, cursosresp);
+     if(descuento_g!=null){
      if(descuento_g.id>0){
         updatecurso.discount_g=descuento_g
-    }
+    }}
 
      let N_STUDENTS_C=await this.cursostudentRepository.count({where:{id_curso:curso.id}})
       let REVIEWS_C=await this.reviewsRepository.find({where:{id_curso:curso.id}})

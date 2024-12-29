@@ -30,7 +30,7 @@ export class CreateCarritoDto{
   
     
     id_user:number;   
-    id_curso:number;
+    id_curso:number; 
     
       
 

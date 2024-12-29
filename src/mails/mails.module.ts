@@ -1,32 +1,33 @@
 import { Module } from '@nestjs/common';
 import { MailsService } from './mails.service';
 import { MailerModule } from '@nestjs-modules/mailer';
-import { ConfigService } from '@nestjs/config';
+import {   ConfigService } from '@nestjs/config';
 import { join } from 'path';
 import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
-import { TypeOrmModule } from '@nestjs/typeorm';
+ 
 import { Saledetail } from 'src/saledetail/saledetail.entity';
 import { Sale } from 'src/sale/sale.entity';
  
+ 
 
  
- 
+const configService = new ConfigService();
 
 @Module({
   exports:[MailsService],
   imports:[
     MailerModule.forRootAsync({
-     useFactory: async (config:ConfigService)=>({
+     useFactory: async (config:ConfigService)=>({ 
       transport:{
-        host:'tusoporteweb.cl',
+        host:'email-smtp.us-east-1.amazonaws.com',
         secure: true,
         port:465,
-        auth:{user:'sniperproapp@tusoporteweb.cl',pass:'gllv1992..',}
+        auth:{user:configService.get('USER'),pass:configService.get('PASS'),}
       },
-      defaults:{from: `"NO REPLY" <sniperproapp@tusoporteweb.cl>`,},
+      defaults:{from: `"NO REPLY" <info@blockzonx.com>`,},
       template:{dir: join(__dirname,'templates'),
     adapter: new HandlebarsAdapter(),
-    options: {
+    options: { 
       strict: true,
             },
       },

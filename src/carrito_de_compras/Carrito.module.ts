@@ -13,6 +13,8 @@ import { Carrito } from './Carrito.entity';
 import { CarritoService } from './Carrito.service';
 import { CarritoController } from './Carrito.controller';
 import { CuponCursos } from 'src/cupones/cuponCursos.entity';
+import { MailsService } from 'src/mails/mails.service';
+import { PagosService } from 'src/pagos/services/pagos.service';
 
 @Module({
   imports:[TypeOrmModule.forFeature([Carrito,User,CategoryCursos,SectionCursos,DescuentoCursos,CuponCursos ]),JwtModule.register({
@@ -20,6 +22,6 @@ import { CuponCursos } from 'src/cupones/cuponCursos.entity';
     signOptions: { expiresIn: '10000h' },
   })],
   controllers: [CarritoController],
-  providers: [CarritoService,JwtStrategy]
+  providers: [CarritoService,JwtStrategy,MailsService,PagosService]
 })
 export class CarritoModule {}

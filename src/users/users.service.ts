@@ -39,6 +39,16 @@ return  this.usersRepository.save(newUser)
     }
 
 
+
+    
+    async finduser(email: string){
+        
+        return   await   this.usersRepository.findOne({ where:{email:Like('%'+email+'%')}});
+   
+            
+    }
+
+
     findAllinstructor( ){
        
              

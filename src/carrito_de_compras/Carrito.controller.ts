@@ -42,6 +42,32 @@ finAll( @Headers() headers,  ) {
   console.log(carrito)
   return this.carritoervices.create(carrito,idclient.id );
 }
+
+
+
+ 
+@Post('registermensualidad') 
+ createmensualidad( 
+ @Body() carrito:CreateCarritoDto) {
+   
+  
+  console.log(carrito)
+  return this.carritoervices.createmensualidad(carrito,carrito.id_user );
+}
+
+
+
+
+
+@Post('getstsuspay/:id') 
+ getstatuspay( 
+  @Param('id') id: number,) {
+   
+  
+  
+  return this.carritoervices.getstatuspay(  id );
+}
+
 // @HasRoles(JwtRole.ADMIN,JwtRole.PROF,JwtRole.CLIENT)
 // @UseGuards(JwtAuthGuard ,JwtRolesGuard)
 // @Get('show/:id_curso')

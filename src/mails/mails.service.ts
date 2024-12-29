@@ -13,12 +13,12 @@ private mailerservices: MailerService
 
   ){}
 
-  async senUserConfirmation( email:string){
+  async senUserConfirmation( email:string,token:string){
     await this.mailerservices.sendMail({
       to:email,
       subject:"Recuperar Password",
       template:'./recueperarpass',
-      context:{id:email}
+      context:{id:token}
       
     })
   }
@@ -39,23 +39,10 @@ private mailerservices: MailerService
 
     
     try {
-        
-       
-
-       
-       
-       
-
-    console.log(Orden)
-    console.log('Orden')
-
-
-    console.log(OrdenDetail)
-
-    
+     
       await this.mailerservices.sendMail({
         to:email,
-        subject:"FACTURA SNIPER PRO ",
+        subject:"LINK DE PAGO SNIPER PRO ",
         template:'./html',
         context:{Orden:Orden,Orden_detail:OrdenDetail,}
         
@@ -68,5 +55,29 @@ private mailerservices: MailerService
   }
  
   
+}
+
+
+
+async sendmaillinkdepago(Orden:any,email:any){
+
+    
+  try {
+   
+    await this.mailerservices.sendMail({
+      to:email,
+      subject:"FACTURA SNIPER PRO ",
+      template:'./htmllink',
+      context:{Orden:Orden}
+      
+    })
+    
+  
+
+} catch (error) {
+    console.log(error);
+}
+
+
 }
 }

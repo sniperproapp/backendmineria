@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { PagosService } from '../services/pagos.service';
 import { CreatepagosDto } from '../dto/createpagosDto';
 
@@ -7,15 +7,19 @@ export class PagosController {
     constructor(private readonly pagosservices: PagosService) {}
 
     @Get('orden')
-    getHello(): any {
-      return this.pagosservices.getHello();
+    getHello( @Param('id') id: number): any {
+      return this.pagosservices.getinfo(id);
     }
 
  
-@Post() 
+@Post('pagomensual') 
 createWithImage(   
  @Body()  pago :CreatepagosDto) {
  
    return this.pagosservices.create( pago);
 }
+
+
+
+
 }

@@ -52,16 +52,16 @@ export class saleService {
         let user = iduser;
   
         sale.id_user=user;
-        let Sale = await this.saleRepository.create(sale);
-        await this.saleRepository.save(Sale);
+        //let Sale = await this.saleRepository.create(sale);
+      //  await this.saleRepository.save(Sale);
         let Carts = await this.carritosRepository.find({where:{id_user: user}});
 
         for (let Cart of Carts) {
          let carrito:CreateCarritoDetailDto 
           const createdetail = Object.assign(Cart,carrito);
-          createdetail.id_sale = Sale.id;
-           let guardardetalle= await this.saledetailsRepository.create(createdetail);
-            await this.saledetailsRepository.save(guardardetalle);
+          //createdetail.id_sale = Sale.id;
+         //  let guardardetalle= await this.saledetailsRepository.create(createdetail);
+           // await this.saledetailsRepository.save(guardardetalle);
             // LA HABILITACION DEL CURSO AL ESTUDIANTE QUE SE HA INSCRITO
            let guardarusercurso= await this.cursostudentsRepository.create({
                 id_user: user,
@@ -76,10 +76,10 @@ export class saleService {
 
         // IRIA EL ENVIO DE EMAIL
         //await send_email(Sale._id);
-        let ordendetail = await this.saledetailsRepository.find({relations:['cursos'], where:{id_sale: Sale.id}});
-        let orden = await this.saleRepository.findOne({relations:['user'], where:{id: Sale.id}});
-        let usuario = await this.usersRepository.findOne({ where:{id: iduser}});
-       await this.mailservices.sendmail(orden,ordendetail,usuario.email);
+      //  let ordendetail = await this.saledetailsRepository.find({relations:['cursos'], where:{id_sale: Sale.id}});
+      //  let orden = await this.saleRepository.findOne({relations:['user'], where:{id: Sale.id}});
+       // let usuario = await this.usersRepository.findOne({ where:{id: iduser}});
+      // await this.mailservices.sendmail(orden,ordendetail,usuario.email);
 
             throw new HttpException('LA ORDEN SE GENERO CORRECTAMENTE ',HttpStatus.OK);
    

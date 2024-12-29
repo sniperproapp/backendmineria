@@ -40,6 +40,9 @@ export class Carrito{
     id_user:number;
     @Column()
     id_curso:number;
+
+    @Column()
+    id_transaccion:number;
     
       
     

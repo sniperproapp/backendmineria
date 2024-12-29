@@ -9,6 +9,7 @@ import { HasRoles } from 'src/auth/jwt/has-roles';
 import { JwtRole } from 'src/auth/jwt/jwt-Rol';
 import { JwtRolesGuard } from 'src/auth/jwt/jwt-roles.guard';
 import { UpdateTimeLimitUserDto } from './dto/update_time_limit-user';
+import { Console } from 'console';
 
 @Controller('users')
 export class UsersController {
@@ -27,7 +28,12 @@ findall(@Param('busqueda') busqueda: string){
   return this.UsersService.findAll(busqueda);
 }
 
-
+ 
+@Get('getuser/:email')
+findusermensual(@Param('email') email: string){
+   
+  return this.UsersService.finduser(email);
+}
  
 
 

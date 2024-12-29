@@ -40,7 +40,8 @@ export class User{
 
     @Column()
     password: string;
-
+    @Column()
+    tokenpass: string;
     @Column({nullable:true})
     notification_token: string;
 
