@@ -3,16 +3,17 @@ import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import * as morgan from 'morgan'
+import { CORS } from './constants';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.use(morgan('env'));
-  const cors = require('cors');
-  app.use(cors()); 
+  app.enableCors(CORS)
+  app.setGlobalPrefix('api')
   app.useGlobalPipes(new ValidationPipe({forbidUnknownValues: false}));
-   const port = app.get(ConfigService)
+  const port = app.get(ConfigService)
    
-  const newLocal = "0.0.0.0";
+   
   await app.listen(port.get('PORT'));
   console.log(`Aplication running on: ${await app.getUrl()}`)
    
