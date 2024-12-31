@@ -20,7 +20,7 @@ export class User{
     @Column({default: 0})
     estado: number;
 
-    @Column({default: 0})
+    @Column({type: "decimal", precision: 20, scale: 10,default:0})
     saldo: number;
 
     @Column({unique:true})

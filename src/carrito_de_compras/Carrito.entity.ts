@@ -17,7 +17,7 @@ export class Carrito{
     id_user:number;
      
     @Column()
-    id_transaccion:number;
+    id_transaccion:string;
     
       
     

@@ -384,163 +384,49 @@ return data;
         try {
           
             let user = iduser
-            let enrolled_course_count = await this.cursostudentsRepository.count({where:{id_user: user}});
-            // TODOS LOS CURSOS QUE AL MENOS SE HA VISTO UNA CLASE
-            let actived_course_count = await this.cursostudentsRepository.count({where:{id_user: user,state: 1,clases_checked:Not(IsNull())}});
-            let termined_course_count = await this.cursostudentsRepository.count({where:{id_user: user,state: 2}});
+             
              
 
             let Student = await this.usersRepository.findOne({where:{id: user}});
 
-            let enrolled_course_news = [];
-            let actived_course_news = [];
-            let termined_course_news = [];
+           
+           
 
-            let enrolled_courses = await this.cursostudentsRepository.find({where:{id_user: user}});
+           
 
-            for (const enrolled_course of enrolled_courses) {
-                let course = await this.cursossRepository.findOne({relations:['user','categorycurso','seciones.clases.files'],where:{id: enrolled_course.id_curso}});
+           
 
+           
+
+            
+
+            
+ 
+
+            
                 
-                let numeroclase=0; 
-                course.seciones.forEach((secione) => {
-                   numeroclase+= secione.clases.length
-                 })
-                let N_CLASES =numeroclase;
-                let curso:Cursoauthresouce
-                const cursoresp= Object.assign(course, curso);
-                cursoresp.n_clases=N_CLASES
-                
-
-                enrolled_course_news.push({
-                    clases_checked: enrolled_course.clases_checked,
-                    percentage: (((enrolled_course.clases_checked==null?1:enrolled_course.clases_checked.length)/N_CLASES)*100).toFixed(2),// 2/10 => 0.2 * 100 => 20
-                    course: cursoresp,
-                });
-            }
-
-            let actived_courses = await this.cursostudentsRepository.find({where:{id_user: user,state: 1,clases_checked:Not(IsNull())}});
-
-            for (const actived_course of actived_courses) {
-                let course = await this.cursossRepository.findOne({relations:['user','categorycurso','seciones.clases.files'],where:{id: actived_course.id_curso}});
-
-                let numeroclase=0; 
-                course.seciones.forEach((secione) => {
-                   numeroclase+= secione.clases.length
-                 })
-                let N_CLASES =numeroclase;
-
-              let curso:Cursoauthresouce
-              const cursoresp= Object.assign( course, curso);
-              cursoresp.n_clases=N_CLASES
-                actived_course_news.push({
-                    clases_checked: actived_course.clases_checked,
-                    percentage: (((actived_course.clases_checked==null?1:actived_course.clases_checked.length) /N_CLASES)*100).toFixed(2),// 2/10 => 0.2 * 100 => 20
-                    course: cursoresp,
-                });
-            }
-
-            let termined_courses = await this.cursostudentsRepository.find({where:{id_user: user,state: 2}});
-
-            for (const termined_course of termined_courses) {
-                let course = await this.cursossRepository.findOne({relations:['user','categorycurso','seciones.clases.files'],where:{id: termined_course.id_curso}});
-              
-                let numeroclase=0; 
-                course.seciones.forEach((secione) => {
-                   numeroclase+= secione.clases.length
-                 })
-                let N_CLASES =numeroclase;
-                let curso:Cursoauthresouce
-                const cursoresp= Object.assign(course, curso);
-                cursoresp.n_clases=N_CLASES
-                termined_course_news.push({
-                    clases_checked: termined_course.clases_checked,
-                    percentage: (((termined_course.clases_checked==null?1:termined_course.clases_checked.length)/N_CLASES)*100).toFixed(2),// 2/10 => 0.2 * 100 => 20
-                    course: cursoresp,
-                });
-            }
-
-            let sales = await this.salesRepository.find({where:{id_user: user}});
-            let sales_collection = [];
-            let sales_details_collection = [];
-            for (let sale of sales) {
-                
-                let sale_details = await this.saledetailsRepository.find({relations:['cursos.categorycurso'], where:{id_sale: sale.id}}) 
-               
-                // TAMBIEN NECESITAMOS ITERAR EL SALE DETAIL
-                let sales_detail_collection = [];
-                for (let sale_detail of sale_details) {
-                    
-                    sales_detail_collection.push({
-                        course: {
-                            id: sale_detail.cursos.id,
-                            title: sale_detail.cursos.title,
-                            imagen: sale_detail.cursos.imagen,
-                            categorie: sale_detail.cursos.categorycurso,
-                        },
-                        type_discount: sale_detail.type_discount,
-                        discount: sale_detail.discount,
-                        campaign_discount: sale_detail.campaign_discount,
-                        code_cupon: sale_detail.code_cupon,
-                        code_discount: sale_detail.code_discount,
-                        price_unit: sale_detail.price_unit,
-                        subtotal: sale_detail.subtotal,
-                        total: sale_detail.total,
-                    });
-                    let review =  await this.reviewssRepository.findOne({where:{id_saledetail: sale_detail.id}});
-                    sales_details_collection.push({
-                        course: {
-                            id: sale_detail.cursos.id,
-                            title: sale_detail.cursos.title,
-                            imagen: sale_detail.cursos.imagen,
-                            categorie: sale_detail.cursos.categorycurso,
-                        },
-                        type_discount: sale_detail.type_discount,
-                        discount: sale_detail.discount,
-                        campaign_discount: sale_detail.campaign_discount,
-                        code_cupon: sale_detail.code_cupon,
-                        code_discount: sale_detail.code_discount,
-                        price_unit: sale_detail.price_unit,
-                        subtotal: sale_detail.subtotal,
-                        total: sale_detail.total,
-                        id: sale_detail.id,
-                        review: review,
-                    });
-                }
-                sales_collection.push({
-                    id: sale.id,
-                    method_payment: sale.method_payment,
-                    currency_total: sale.currency_total,
-                    currency_payment: sale.currency_payment,
-                    total: sale.total,
-                    price_dolar: sale.price_dolar,
-                    n_transaccion: sale.n_transaccion,
-                    sales_details: sales_detail_collection,
-                    created_at: formDateToYMD(sale.created_at),
-                });
-            }
 
             return{
-                enrolled_course_count: enrolled_course_count,
-                actived_course_count: actived_course_count,
-                termined_course_count: termined_course_count,
+                enrolled_course_count: '',
+                actived_course_count: '',
+                termined_course_count:'',
                 profile: {
                     id: Student.id,
                     name: Student.name,
                     surname: Student.lastname,
                     email: Student.email,
-                   // profession: Student.profession,
+                    saldo: Student.saldo,
                    // description: Student.description,
                    // phone: Student.phone,
                    // birthday: Student.birthday ? formDateToYMD(new Date(Student.birthday)) : null,
                    // birthday_format: Student.birthday ? Student.birthday : null,
                     avatar: Student.imagen 
                 },
-                enrolled_course_news: enrolled_course_news,
-                actived_course_news: actived_course_news,
-                termined_course_news: termined_course_news,
-                sales: sales_collection,
-                sales_details: sales_details_collection,
+                enrolled_course_news: '',
+                actived_course_news: '',
+                termined_course_news: '',
+                sales: '',
+                sales_details: '',
             }
         } catch (error) {
             console.log(error);

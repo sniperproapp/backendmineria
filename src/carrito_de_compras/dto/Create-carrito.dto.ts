@@ -12,7 +12,7 @@ export class CreateCarritoDto{
     
     
     monto:number;
-    id_transaccion:number;
+    id_transaccion:string;
   
     
     id_user:number;   

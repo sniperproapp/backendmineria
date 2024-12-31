@@ -61,7 +61,7 @@ finAll( @Headers() headers,  ) {
 
 @Post('getstsuspay/:id') 
  getstatuspay( 
-  @Param('id') id: number,) {
+  @Param('id') id: string,) {
    
   
   
