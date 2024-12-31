@@ -165,7 +165,7 @@ async createmensualidad(carrito:CreateCarritoDto,idUser:number ){
        
       let newcarrito = await this.carritoRepository.create( carrito);
       this.clientesilo.setSecretKey('hlTodcgOPkKEs2SjlYbNPbJpyg_QxCNEMiuoqKy4SkuEaWDsC4CAaJob9-00x-Lz');
-      let resulqueriinvoice= await this.clientesilo.buildQuery("invoices/new",{order_number:65,currency:'USDT',source_currency:'USD',source_amount:carrito.monto,callback_url:'http://blockzonx.com',order_name:'cargar',email:user.email},true);
+      let resulqueriinvoice= await this.clientesilo.buildQuery("invoices/new",{order_number:newcarrito.id,currency:'USDT',source_currency:'USD',source_amount:carrito.monto,callback_url:'http://blockzonx.com',order_name:'cargar',email:user.email},true);
       respuestafactura= await this.clientesilo.crearinvoice(resulqueriinvoice);
    
      
@@ -184,7 +184,7 @@ async createmensualidad(carrito:CreateCarritoDto,idUser:number ){
      //console.log(infopagos)
 
      
-     let orden={total:respuestafactura.invoice_total_sum,id:newcarritores.id,name:user.name,lastname:user.lastname,method_payment:"CRYPTO",link:respuestafactura.invoice_url,
+     let orden={total:respuestafactura.invoice_total_sum,id:newcarritores.id_transaccion,name:user.name,lastname:user.lastname,method_payment:"CRYPTO",link:respuestafactura.invoice_url,
 
      }
       this.mailservices.sendmaillinkdepago(orden,user.email)
