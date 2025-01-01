@@ -72,6 +72,12 @@ async getstatuspay( id:string){
        
     if(!infopago)
         {
+            const carrito= await this.carritoRepository.findOne({where:{id_transaccion:id }})
+            if(carrito)
+                {
+                    this.carritoRepository.delete(carrito.id); 
+                }
+       
             throw new HttpException('no se encontro su orden de pago verifique el numero de orden enviado al correo',HttpStatus.OK); 
          }
 
