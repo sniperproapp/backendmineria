@@ -3,7 +3,8 @@ import { Cursos } from "src/cursos/Cursos.entity";
 import { Products } from "src/products/products.entity";
 import { Rol } from "src/roles/rol.entity";
 import { Sale } from "src/sale/sale.entity";
-import { BeforeInsert, BeforeUpdate, Column, CreateDateColumn, Entity, JoinTable, ManyToMany, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Wallet } from "src/wallet/wallet.entity";
+import { BeforeInsert, BeforeUpdate, Column, CreateDateColumn, Entity, JoinColumn, JoinTable, ManyToMany, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity({name: 'users'})
 export class User{
@@ -78,5 +79,7 @@ async hashPassword(){
 //     this.password=await hash(this.password,Number(process.env.HASH_SALT))}
 // }
  
-
+@OneToOne(() => Wallet, (wallet) => wallet.user) // specify inverse side as a second parameter
+    @JoinColumn({name:'id_wallet'})
+    wallet: Wallet
 }

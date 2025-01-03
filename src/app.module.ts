@@ -25,6 +25,14 @@ import { CursostudentModule } from './studentcurso/Cursostudent.module';
 import { saleModule } from './sale/sale.module';
 import { SaledetailModule } from './saledetail/Saledetail.module';
 import { ReviewsModule } from './reviews/reviews.module';
+import { WalletModule } from './wallet/wallet.module';
+import { TransactionModule } from './transaccion/transaction.module';
+import { CurrencyModule } from './currecy/currency.module';
+import { BscscanModule } from './bscscan/Bscscan.module';
+import { ReceivingWalletModule } from './ReceivingWallet/wallet.module';
+import { PaymentsModule } from './payments/payments.module';
+import { AppController } from './app.controller';
+import { AppService } from './app.service';
  
 
 @Module({
@@ -53,9 +61,16 @@ import { ReviewsModule } from './reviews/reviews.module';
     FileCursosModule,
     cuponCursosModule,
     descuentoCursosModule,
+    WalletModule,
+    TransactionModule,
+    BscscanModule,
+    CurrencyModule,
+    ReceivingWalletModule,
+    PaymentsModule
    
     
   ],
   exports: [ConfigModule], 
+  providers:[AppService],controllers:[AppController]
 })
 export class AppModule {}

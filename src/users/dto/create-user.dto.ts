@@ -7,6 +7,7 @@ export class CreateUserDto{
     phone:string;
     password:string;
     image?:string;
+    id_wallet:string;
     notification_token:string;
     time_limit:Date;
 }

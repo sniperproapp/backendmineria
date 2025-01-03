@@ -19,6 +19,7 @@ import { Sale } from 'src/sale/sale.entity';
 import { Saledetail } from 'src/saledetail/saledetail.entity';
 import { Cursoauthresouce } from './dto/Cursoauthresouce.dto';
 import { Reviews } from 'src/reviews/reviews.entity';
+import { Wallet } from 'src/wallet/wallet.entity';
  
 
 function formDateToYMD(date,type=1) {
@@ -37,7 +38,7 @@ export class AuthService {
      
     constructor(
          @InjectRepository(User) private usersRepository: Repository<User>,
-         @InjectRepository(Sale) private salesRepository: Repository<Sale>,
+         @InjectRepository(Wallet) private walletsRepository: Repository<Wallet>,
          @InjectRepository(Saledetail) private saledetailsRepository: Repository<Saledetail>,
          @InjectRepository(Reviews) private reviewssRepository: Repository<Reviews>,
          @InjectRepository(Cursostudent) private cursostudentsRepository: Repository<Cursostudent>,
@@ -63,8 +64,10 @@ export class AuthService {
         // }
         user.descargo=0;
         user.time_limit= new Date();
-         
-        const newUser=this.usersRepository.create(user);
+        
+        const newUser= await this.usersRepository.create(user);
+        const wallet= await this.walletsRepository.create({id:user.id_wallet.toLowerCase(),balance:0,balance_ganancia:0,balance_minando:0})
+         await this.walletsRepository.save(wallet);
         let rolesIds = [];
         if(user.rolesIds !== undefined && user.rolesIds!==null)
         {
@@ -75,7 +78,7 @@ export class AuthService {
          
         const roles =await this.rolesRepository.findBy({id: In(rolesIds)});
         newUser.roles= roles;
-      
+        newUser.wallet=wallet
         const usersave= await this.usersRepository.save(newUser);
         const rolesstring =usersave.roles.map(rol=> rol.id)
         const payload={
@@ -193,7 +196,7 @@ export class AuthService {
         const {email,password}= logindata;
         const userFound= await this.usersRepository.findOne({
             where:{ email: email},
-            relations:['roles']
+            relations:['roles','wallet']
             })
 
     
@@ -387,7 +390,7 @@ return data;
              
              
 
-            let Student = await this.usersRepository.findOne({where:{id: user}});
+            let Student = await this.usersRepository.findOne({where:{id: user},relations:['wallet']});
 
            
            
@@ -416,7 +419,7 @@ return data;
                     surname: Student.lastname,
                     email: Student.email,
                     saldo: Student.saldo,
-                   // description: Student.description,
+                     wallet: Student.wallet,
                    // phone: Student.phone,
                    // birthday: Student.birthday ? formDateToYMD(new Date(Student.birthday)) : null,
                    // birthday_format: Student.birthday ? Student.birthday : null,

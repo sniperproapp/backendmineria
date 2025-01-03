@@ -8,6 +8,7 @@ import { UpdateUserDto } from 'src/users/dto/update-user.dto';
 import { Rol } from '../roles/rol.entity';
 import  storage = require( '../utils/cloud_storage');
 import { UpdateTimeLimitUserDto } from './dto/update_time_limit-user';
+import { Wallet } from 'src/wallet/wallet.entity';
 
 
 @Injectable()
@@ -15,13 +16,18 @@ export class UsersService {
     constructor(
         @InjectRepository(User) private usersRepository:Repository<User>
         ,@InjectRepository(Rol) private RolesRepository:Repository<Rol>
+        ,@InjectRepository(Wallet) private walletRepository:Repository<Wallet>
     ){}
-    create(user:CreateUserDto)
-    {
-        user.time_limit= new Date();
-        console.log(user.time_limit);
- const newUser=this.usersRepository.create(user);
-return  this.usersRepository.save(newUser)
+    async create(user:CreateUserDto)
+         
+    {  
+        
+        user.id_wallet=user.id_wallet.toLowerCase()
+        const newUser= await this.usersRepository.create(user);
+      
+       const wallet= await this.walletRepository.create({id:user.id_wallet.toLowerCase(),balance:0,balance_ganancia:0,balance_minando:0})
+        this.walletRepository.save(wallet);
+       return  this.usersRepository.save(newUser)
     }
 
     findAll(busqueda: string){

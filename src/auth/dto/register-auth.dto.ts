@@ -17,7 +17,10 @@ export class RegisterauthDto{
     @IsEmail()
     email:string;
 
-    
+
+    @IsNotEmpty()
+    @IsString()
+    id_wallet:string;
     
     phone:string;
 
