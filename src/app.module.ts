@@ -33,10 +33,13 @@ import { ReceivingWalletModule } from './ReceivingWallet/wallet.module';
 import { PaymentsModule } from './payments/payments.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { ScheduleModule } from '@nestjs/schedule';
+import { PaymentsService } from './payments/payments.service';
+import { ReceivingWalletService } from './ReceivingWallet/ReceivingWallet.service';
  
 
 @Module({
-  imports: [ConfigModule.forRoot({envFilePath: `.env` ,isGlobal:true}), 
+  imports: [ScheduleModule.forRoot(),ConfigModule.forRoot({envFilePath: `.env` ,isGlobal:true}), 
     TypeOrmModule.forRoot({  ...DataSourceConfig
     }),
     UsersModule,
@@ -71,6 +74,6 @@ import { AppService } from './app.service';
     
   ],
   exports: [ConfigModule], 
-  providers:[AppService],controllers:[AppController]
+  providers:[AppService,  ],controllers:[AppController]
 })
 export class AppModule {}
