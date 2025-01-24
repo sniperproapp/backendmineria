@@ -155,6 +155,28 @@ export class AuthService {
         return Math.floor(Math.random() * (max - min) + min);
       }
     
+
+
+      async pasarg(id: string)
+    {
+        const walletfound= await this.walletsRepository.findOneBy({id: id});
+        if (!walletfound)
+            {
+                throw new HttpException('walle no encontrada',HttpStatus.OK);
+            }
+       
+            walletfound.balance=walletfound.balance*1+walletfound.balance_ganancia*1
+            walletfound.balance_ganancia=0;
+            const isok= await this.walletsRepository.save(walletfound);
+        
+         
+
+
+        throw new HttpException('SALDO TRANSFERIDO',HttpStatus.OK);
+     }
+
+
+
     async recuperarpass(email: string)
     {
         const userfound= await this.usersRepository.findOneBy({email: email});

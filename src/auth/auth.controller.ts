@@ -76,6 +76,14 @@ updateWithImage(@UploadedFile(
         return this.authServices.recuperarpass(email);
 
     }
+
+
+    @Post('pasarg/:id')
+    pasarg(@Param('id') id:string,){
+        return this.authServices.pasarg(id);
+
+    }
+    
     
     
     @Post('updatepass')
