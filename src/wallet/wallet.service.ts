@@ -37,4 +37,26 @@ export class WalletService {
   
       return wallet;
     }
+ 
+    async sumarprocentajewallet()
+    {
+
+      const wallet = await this.WalletRepository.find()
+      let ganancia:number
+      let balance:number
+      for(let i=0;i<wallet.length;i++)
+      {
+         ganancia= wallet[i].balance_ganancia;
+         balance=wallet[i].balance;
+         ganancia= (balance*0.005) + wallet[i].balance_ganancia*1
+        console.log(  (ganancia) +'\n')
+        
+        wallet[i].balance_ganancia=ganancia;
+
+      }
+      await this.WalletRepository.save(wallet);
+
+    }
+
+
 }

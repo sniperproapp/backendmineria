@@ -11,11 +11,11 @@ export class Wallet{
 
  
 
-@Column({ nullable: false })
+@Column({type: 'decimal', precision: 10, scale: 2, default: 0.0 })
 balance: number;
-@Column({ nullable: false })
+@Column({type: 'decimal', precision: 10, scale: 2, default: 0.0 })
 balance_minando: number;
-@Column({ nullable: false })
+@Column({type: 'decimal', precision: 10, scale: 2, default: 0.0 })
 balance_ganancia: number;
 
   @OneToMany(() => Transaction, transaction => transaction.wallet)

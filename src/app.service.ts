@@ -4,6 +4,7 @@ import { PaymentsService } from './payments/payments.service';
 import { ReceivingWalletService } from './ReceivingWallet/ReceivingWallet.service';
 import { createConnection } from 'typeorm';
 import { Cron } from '@nestjs/schedule';
+import { WalletService } from './wallet/wallet.service';
 const configService = new ConfigService();
 @Injectable()
 export class AppService {
@@ -11,7 +12,8 @@ export class AppService {
   constructor(
     
     private readonly   processor: PaymentsService,
-    private readonly  receivingWallets: ReceivingWalletService
+    private readonly  receivingWallets: ReceivingWalletService,
+    private readonly   wallets: WalletService
  
  
    
@@ -20,6 +22,7 @@ export class AppService {
  
 
   private isProcessing = false;
+ 
 
   @Cron('* * * * *')
   async init() {
@@ -28,6 +31,16 @@ export class AppService {
     await this.ensureMainWallet();
 
     this.startPaymentsProcessor();
+  }
+
+  @Cron('* * * * *')
+  async validarporcentajes() {
+   
+console.log('procesando porcentajes')
+   await this.wallets.sumarprocentajewallet();
+    
+
+    
   }
 
   private get mainWalletAddress() {
