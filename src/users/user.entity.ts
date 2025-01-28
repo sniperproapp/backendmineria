@@ -1,6 +1,7 @@
 import { hash } from "bcrypt";
 import { Cursos } from "src/cursos/Cursos.entity";
 import { Products } from "src/products/products.entity";
+import { Retiros } from "src/retiros/Retiros.entity";
 import { Rol } from "src/roles/rol.entity";
 import { Sale } from "src/sale/sale.entity";
 import { Wallet } from "src/wallet/wallet.entity";
@@ -68,6 +69,10 @@ export class User{
 
     @OneToMany(()=>Sale,sale=>sale.user)
     sales: Sale[]
+
+    @OneToMany(()=>Retiros,retiro=>retiro.user)
+    retiro: Retiros[]
+    
     
 @BeforeInsert()
 async hashPassword(){

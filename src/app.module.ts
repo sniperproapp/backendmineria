@@ -36,6 +36,7 @@ import { AppService } from './app.service';
 import { ScheduleModule } from '@nestjs/schedule';
 import { PaymentsService } from './payments/payments.service';
 import { ReceivingWalletService } from './ReceivingWallet/ReceivingWallet.service';
+import { RetirosModule } from './retiros/retiros.module';
  
 
 @Module({
@@ -69,7 +70,8 @@ import { ReceivingWalletService } from './ReceivingWallet/ReceivingWallet.servic
     BscscanModule,
     CurrencyModule,
     ReceivingWalletModule,
-    PaymentsModule
+    PaymentsModule,
+    RetirosModule
    
     
   ],

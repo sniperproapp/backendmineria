@@ -412,7 +412,7 @@ return data;
              
              
 
-            let Student = await this.usersRepository.findOne({where:{id: user},relations:['wallet']});
+            let Student = await this.usersRepository.findOne({where:{id: user},relations:['wallet','retiro']});
 
            
            
@@ -441,8 +441,8 @@ return data;
                     surname: Student.lastname,
                     email: Student.email,
                     saldo: Student.saldo,
-                     wallet: Student.wallet,
-                   // phone: Student.phone,
+                    wallet: Student.wallet,
+                    history: Student.retiro,
                    // birthday: Student.birthday ? formDateToYMD(new Date(Student.birthday)) : null,
                    // birthday_format: Student.birthday ? Student.birthday : null,
                     avatar: Student.imagen 
