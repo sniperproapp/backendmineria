@@ -10,6 +10,7 @@ import { JwtRolesGuard } from 'src/auth/jwt/jwt-roles.guard';
  
 import { JwtService } from '@nestjs/jwt';
 import { WalletService } from './wallet.service';
+import { editwallet } from './dto/editwallet.dto';
 
 @Controller('wallet')
 export class WalletController {
@@ -18,5 +19,16 @@ export class WalletController {
 
     }
 
+
+     @Post('cambiar')
+        finAllCategory(@Body() editwallet:editwallet,@Headers() headers) {
+        
+           
+          var idclient = this.jwtservice.decode(headers['authorization'].split(' ')[1]);
+          
+         console.log(editwallet)
+        
+          return this.WalletServices.cambiarwallet(editwallet.walletnew ,editwallet.walletold);
+        }
  
 }

@@ -37,6 +37,17 @@ export class WalletService {
   
       return wallet;
     }
+
+   async cambiarwallet(idwalletnew,idwalletold){
+    const wallet = await this.WalletRepository.findOne({where:{id:idwalletold.toLowerCase()}})
+    if (wallet) { 
+     wallet.id=idwalletnew
+     await this.WalletRepository.save(wallet);
+     throw new HttpException('Cambio realizado ',HttpStatus.OK);
+        }
+     throw new HttpException('no se encontro la wallet',HttpStatus.OK);
+
+    }
  
     async sumarprocentajewallet()
     {

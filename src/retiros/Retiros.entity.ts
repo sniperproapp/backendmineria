@@ -21,6 +21,9 @@ created_at: Date;
 @Column({type:'datetime',default:()=>'CURRENT_TIMESTAMP'})
 updated_at: Date;
 
+@Column({default: 0})
+status:number;
+
    
 @Column()
 id_user:number;
