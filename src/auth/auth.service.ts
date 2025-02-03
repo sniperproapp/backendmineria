@@ -20,6 +20,7 @@ import { Saledetail } from 'src/saledetail/saledetail.entity';
 import { Cursoauthresouce } from './dto/Cursoauthresouce.dto';
 import { Reviews } from 'src/reviews/reviews.entity';
 import { Wallet } from 'src/wallet/wallet.entity';
+import { Retiros } from 'src/retiros/Retiros.entity';
  
 
 function formDateToYMD(date,type=1) {
@@ -43,6 +44,7 @@ export class AuthService {
          @InjectRepository(Reviews) private reviewssRepository: Repository<Reviews>,
          @InjectRepository(Cursostudent) private cursostudentsRepository: Repository<Cursostudent>,
          @InjectRepository(Cursos) private cursossRepository: Repository<Cursos>,
+         @InjectRepository(Retiros) private retirosRepository: Repository<Retiros>,
     @InjectRepository(Rol) private rolesRepository:Repository<Rol>
     , private jwtservice: JwtService,private mailservices: MailsService){
 
@@ -164,7 +166,7 @@ export class AuthService {
             {
                 throw new HttpException('walle no encontrada',HttpStatus.OK);
             }
-       
+        
             walletfound.balance=walletfound.balance*1+walletfound.balance_ganancia*1
             walletfound.balance_ganancia=0;
             const isok= await this.walletsRepository.save(walletfound);
@@ -413,27 +415,14 @@ return data;
              
 
             let Student = await this.usersRepository.findOne({where:{id: user},relations:['wallet','retiro']});
+            let retirosporpagar = await this.retirosRepository.find({where:{status:0},relations:['user.wallet']});
+            let retirospagados = await this.retirosRepository.find({where:{status:1},relations:['user.wallet']});
 
            
            
-
-           
-
-           
-
-           
-
-            
-
-            
- 
-
-            
-                
-
-            return{
-                enrolled_course_count: '',
-                actived_course_count: '',
+        return{
+                enrolled_course_count: retirosporpagar,
+                actived_course_count: retirospagados,
                 termined_course_count:'',
                 profile: {
                     id: Student.id,

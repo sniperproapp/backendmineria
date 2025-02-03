@@ -31,4 +31,16 @@ export class RetirosController {
       return this.retirosServices.generarretiro(idclient.id,retiro);
     }
     
+
+
+    @HasRoles(JwtRole.ADMIN,JwtRole.PROF)
+    @UseGuards(JwtAuthGuard ,JwtRolesGuard)
+    @Post('cambiar/:id')
+    cambiarstatus(@Param('id',ParseIntPipe) id:number ) {
+    
+       
+     console.log(id)
+     
+      return this.retirosServices.cambiarstatus(id );
+    }
 }

@@ -27,7 +27,10 @@ export class RetirosService {
       console.log(userfound)
 
       const walletfound = await this.walletRepository.findOne({where:{id: userfound.wallet.id}})
-
+      if (retiro.numero>walletfound.balance)
+        {
+            throw new HttpException('error',HttpStatus.OK);
+        }
       console.log(walletfound)
       walletfound.balance=(walletfound.balance*1)-(retiro.numero*1)
         this.RetirosRepository.save(createretirouser);
@@ -37,7 +40,19 @@ export class RetirosService {
      throw new HttpException('retiro realizado ',HttpStatus.OK);
     }
   
-    async getOrCreateWallet(id: string) {
+    async cambiarstatus(id:any) {
+
+      const retirofound= await this.RetirosRepository.findOne({where:{id_user:id}})
+      
+     if(!retirofound)
+      {
+          
+             throw new HttpException('error',HttpStatus.OK);
+          
+      }
+      retirofound.status=1;
+      this.RetirosRepository.save(retirofound);
+      throw new HttpException('retiro realizado ',HttpStatus.OK);
      
     }
  

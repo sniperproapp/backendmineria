@@ -5,7 +5,7 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
  
-import { User } from 'src/users/user.entity';
+ 
 import { Wallet } from './wallet.entity';
 
 
@@ -38,16 +38,7 @@ export class WalletService {
       return wallet;
     }
 
-   async cambiarwallet(idwalletnew,idwalletold){
-    const wallet = await this.WalletRepository.findOne({where:{id:idwalletold.toLowerCase()}})
-    if (wallet) { 
-     wallet.id=idwalletnew
-     await this.WalletRepository.save(wallet);
-     throw new HttpException('Cambio realizado ',HttpStatus.OK);
-        }
-     throw new HttpException('no se encontro la wallet',HttpStatus.OK);
 
-    }
  
     async sumarprocentajewallet()
     {

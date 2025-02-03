@@ -33,7 +33,7 @@ export class AppService {
     this.startPaymentsProcessor();
   }
 
-  @Cron('* * * * *')
+  @Cron('0 1 * * *')
   async validarporcentajes() {
    
 console.log('procesando porcentajes')

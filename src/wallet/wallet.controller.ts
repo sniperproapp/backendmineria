@@ -20,15 +20,6 @@ export class WalletController {
     }
 
 
-     @Post('cambiar')
-        finAllCategory(@Body() editwallet:editwallet,@Headers() headers) {
-        
-           
-          var idclient = this.jwtservice.decode(headers['authorization'].split(' ')[1]);
-          
-         console.log(editwallet)
-        
-          return this.WalletServices.cambiarwallet(editwallet.walletnew ,editwallet.walletold);
-        }
+     
  
 }
