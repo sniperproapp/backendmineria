@@ -42,17 +42,12 @@ export class RetirosService {
   
     async cambiarstatus(id:any) {
 
-      const retirofound= await this.RetirosRepository.findOne({where:{id_user:id}})
+      const retirofound= await this.RetirosRepository.findOne({where:{id:id}})
       
-     if(!retirofound)
-      {
-          
-             throw new HttpException('error',HttpStatus.OK);
-          
-      }
+     
       retirofound.status=1;
       this.RetirosRepository.save(retirofound);
-      throw new HttpException('retiro realizado ',HttpStatus.OK);
+      throw new HttpException('pago realizado',HttpStatus.OK);
      
     }
  
