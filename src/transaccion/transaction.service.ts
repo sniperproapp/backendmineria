@@ -59,7 +59,11 @@ export class TransactionService {
     const transaction = this.createTransactionEntity(queryRunner, transactionId, apiTransaction, currency, wallet);
 
    let data= await this.walletRepository.findOne({where:{id: wallet.id }})
-   data.balance=data.balance+transaction.amount*1
+   console.log('data.balance',data.balance);
+   console.log('transaction.amount',transaction.amount);
+
+   data.balance=data.balance*1+transaction.amount*1
+   console.log('data.balance',data.balance);
    this.walletRepository.save(data); 
    console.log('Wallet saved', wallet.id);
    this.transactionRepository.save(transaction)

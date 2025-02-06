@@ -19,7 +19,7 @@ export class User{
     lastname: string;
 
       
-    @Column({default: 0})
+    @Column({default: 1})
     estado: number;
 
     @Column({type: "decimal", precision: 20, scale: 10,default:0})
