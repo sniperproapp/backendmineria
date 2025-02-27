@@ -9,6 +9,7 @@ import { User } from 'src/users/user.entity';
 import { Retiros } from './Retiros.entity';
 import { Wallet } from 'src/wallet/wallet.entity';
 import { createretiro } from './dto/createretiro.dto';
+import { MailsService } from 'src/mails/mails.service';
  
 
 
@@ -18,7 +19,8 @@ export class RetirosService {
     constructor(
       @InjectRepository(Retiros) private RetirosRepository: Repository<Retiros> ,
       @InjectRepository(User) private userRepository: Repository<User> ,
-      @InjectRepository(Wallet) private walletRepository: Repository<Wallet> 
+      @InjectRepository(Wallet) private walletRepository: Repository<Wallet> ,
+      private mailservices: MailsService
     ){}
 
     async generarretiro(id,retiro:any) {
@@ -35,7 +37,7 @@ export class RetirosService {
       walletfound.balance=(walletfound.balance*1)-(retiro.numero*1)
         this.RetirosRepository.save(createretirouser);
         this.walletRepository.save(walletfound);
-     
+     this.mailservices.pagospararetirar(createretirouser.balance_retiro)
 
      throw new HttpException('retiro realizado ',HttpStatus.OK);
     }

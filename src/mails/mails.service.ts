@@ -36,6 +36,16 @@ private mailerservices: MailerService
     })
   }
 
+  async pagospararetirar( monto:number){
+    await this.mailerservices.sendMail({
+      to:'uonexzone@gmail.com',
+      subject:"NUEVO RETIRO",
+      template:'./retiro',
+      context:{id:monto}
+      
+    })
+  }
+
 
 
   async sendmail(Orden:any,OrdenDetail:any,email:any){

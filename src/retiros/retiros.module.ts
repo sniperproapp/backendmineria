@@ -11,6 +11,7 @@ import { RetirosService } from './retiros.service';
 import { Retiros } from './Retiros.entity';
 import { RetirosController } from './retiros.controller';
 import { Wallet } from 'src/wallet/wallet.entity';
+import { MailsService } from 'src/mails/mails.service';
  
 
 @Module({exports:[RetirosService],
@@ -18,7 +19,7 @@ import { Wallet } from 'src/wallet/wallet.entity';
     secret: jwtConstants.secret,
     signOptions: { expiresIn: '10000h' },
   })],
-  providers: [RetirosService,JwtStrategy],
+  providers: [RetirosService,JwtStrategy,MailsService],
   controllers: [RetirosController]
 })
 export class RetirosModule {}
