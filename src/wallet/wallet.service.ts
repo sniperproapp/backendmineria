@@ -50,7 +50,7 @@ export class WalletService {
       {
          ganancia= wallet[i].balance_ganancia;
          balance=wallet[i].balance;
-         ganancia= (balance*0.005) + wallet[i].balance_ganancia*1
+         ganancia= (balance*0.002) + wallet[i].balance_ganancia*1
         console.log(  (ganancia) +'\n')
         
         wallet[i].balance_ganancia=ganancia;
